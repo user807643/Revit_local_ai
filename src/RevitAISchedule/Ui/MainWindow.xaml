@@ -1,0 +1,92 @@
+﻿<Window x:Class="RevitAISchedule.Ui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Revit AI Schedule"
+        Width="620" Height="520"
+        MinWidth="520" MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        Background="#F5F5F5">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="16,7"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>      <!-- заголовок -->
+            <RowDefinition Height="Auto"/>      <!-- поле ввода -->
+            <RowDefinition Height="Auto"/>      <!-- кнопки -->
+            <RowDefinition Height="Auto"/>      <!-- статус -->
+            <RowDefinition Height="*"/>         <!-- результат -->
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Revit AI Schedule"
+                   FontSize="19" FontWeight="Bold"
+                   Margin="0,0,0,4" Foreground="#1F3864"/>
+
+        <TextBlock Grid.Row="0" x:Name="SubtitleLabel"
+                   Text="Создание ведомости (schedule) естественным языком"
+                   FontSize="12" Foreground="#666666" Margin="2,30,0,0"/>
+
+        <!-- Поле ввода -->
+        <TextBox Grid.Row="1" x:Name="PromptBox"
+                 Margin="0,10,0,10" Height="96"
+                 AcceptsReturn="True" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 FontSize="14"
+                 Text="Создай ведомость дверей с параметрами Марка, Тип, Ширина, Высота"/>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button x:Name="CreateButton" Content="Создать"
+                    Click="CreateButton_Click" IsDefault="True"/>
+            <Button x:Name="ClearButton" Content="Очистить"
+                    Click="ClearButton_Click" Margin="10,0,0,0"/>
+            <Button x:Name="SettingsButton" Content="Настройки ИИ"
+                    Click="SettingsButton_Click" Margin="10,0,0,0"
+                    ToolTip="Адрес и имя локальной модели, проверка подключения"/>
+            <Button x:Name="CloseButton" Content="Закрыть"
+                    Click="CloseButton_Click" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <!-- Статус -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,6">
+            <ProgressBar x:Name="Progress" Width="150" Height="16"
+                         IsIndeterminate="True" Visibility="Collapsed"
+                         Margin="0,0,8,0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="StatusLabel" Text="Готово."
+                       VerticalAlignment="Center" FontSize="12" Foreground="#555555"/>
+        </StackPanel>
+
+        <GridSplitter Grid.Row="3" Height="4" HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom" Background="Transparent"/>
+
+        <!-- Результат -->
+        <Border Grid.Row="4" Background="White" BorderBrush="#D0D0D0" BorderThickness="1"
+                CornerRadius="3" Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Результат:"
+                           FontWeight="Bold" FontSize="12" Foreground="#555555" Margin="0,0,0,6"/>
+                <TextBox Grid.Row="1" x:Name="ResultBox"
+                         IsReadOnly="True" TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         BorderThickness="0" Background="Transparent"
+                         FontSize="13" Foreground="#222222"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

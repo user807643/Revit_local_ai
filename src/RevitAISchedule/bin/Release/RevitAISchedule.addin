@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Revit AI Schedule</Name>
+    <Assembly>RevitAISchedule\RevitAISchedule.dll</Assembly>
+    <AddInId>7B9D2F4A-6C31-4E58-9A17-2F0C5D83B6E1</AddInId>
+    <FullClassName>RevitAISchedule.Commands.ScheduleRibbonApplication</FullClassName>
+    <Text>Revit AI Schedule</Text>
+    <Description>Создание ведомостей (schedule) по описанию на естественном языке через локальную LLM.</Description>
+    <VendorId>RAIS</VendorId>
+    <VendorDescription>Revit AI Schedule MVP</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Revit AI Schedule SelfTest Application</Name>
+    <Assembly>RevitAISchedule\RevitAISchedule.dll</Assembly>
+    <AddInId>5D3E9A72-1B48-4C6F-A905-8E17D4B62F39</AddInId>
+    <FullClassName>RevitAISchedule.Commands.ScheduleSelfTestApplication</FullClassName>
+    <Text>Revit AI Schedule SelfTest Application</Text>
+    <Description>Служебное приложение: автозапуск SelfTest при старте Revit (для автоматической проверки).</Description>
+    <VendorId>RAIS</VendorId>
+    <VendorDescription>Revit AI Schedule MVP</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Name>Revit AI Schedule SelfTest</Name>
+    <Assembly>RevitAISchedule\RevitAISchedule.dll</Assembly>
+    <AddInId>2C6F8E51-4D73-4B19-8F2A-6E1C9B407D53</AddInId>
+    <FullClassName>RevitAISchedule.Commands.ScheduleSelfTestCommand</FullClassName>
+    <Text>Revit AI Schedule SelfTest</Text>
+    <Description>Диагностика: проверяет создание ведомости через Revit API без обращения к LLM.</Description>
+    <VisibilityMode>NotVisibleInFamily</VisibilityMode>
+    <VendorId>RAIS</VendorId>
+    <VendorDescription>Revit AI Schedule MVP</VendorDescription>
+  </AddIn>
+</RevitAddIns>

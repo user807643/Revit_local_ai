@@ -1,0 +1,29 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Ревит
+*.rvt
+*.chm
+revit api 2026/
+tests/
+
+# OS files
+Thumbs.db
+.DS_Store

@@ -1,0 +1,119 @@
+﻿<Window x:Class="RevitAISchedule.Ui.AiSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройка локальной ИИ-модели"
+        Height="520" Width="720"
+        MinHeight="420" MinWidth="600"
+        WindowStartupLocation="CenterOwner"
+        Background="#F5F6F8"
+        FontFamily="Segoe UI" FontSize="13">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок и путь к файлу настроек -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,8">
+            <TextBlock TextWrapping="Wrap" Foreground="#2B6CB0">
+                Подключение локальной ИИ-модели (LM Studio или любой сервер с OpenAI-совместимым API).
+                Настройки сохраняются в один файл
+                <TextBlock x:Name="ConfigPathText" FontWeight="SemiBold" Text="config.json" />
+            </TextBlock>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,8,0">
+            <StackPanel>
+
+                <!-- Локальная модель -->
+                <GroupBox Header="Локальная ИИ-модель (OpenAI-совместимый API)" Padding="10" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Адрес" VerticalAlignment="Center"
+                                   Margin="0,0,10,6" />
+                        <TextBox x:Name="EndpointBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                                 Margin="0,0,0,6" Padding="4"
+                                 TextChanged="OnEndpointChanged"
+                                 ToolTip="Базовый адрес сервера, например http://127.0.0.1:1234/v1. Полный адрес .../v1/chat/completions тоже подходит." />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Модель" VerticalAlignment="Center"
+                                   Margin="0,0,10,6" />
+                        <ComboBox x:Name="ModelBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                  Margin="0,0,0,2" Padding="4" IsEditable="True"
+                                  ToolTip="Имя модели. Список можно получить кнопкой «Список моделей»." />
+                        <TextBlock x:Name="ModelsHintText" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                   Foreground="#718096" TextWrapping="Wrap" Margin="0,2,0,0" />
+                    </Grid>
+                </GroupBox>
+
+                <!-- Параметры запроса -->
+                <GroupBox Header="Параметры запроса" Padding="10" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Таймаут, с" VerticalAlignment="Center"
+                                   Margin="0,0,10,0" />
+                        <TextBox x:Name="TimeoutBox" Grid.Row="0" Grid.Column="1" Padding="4" Margin="0,0,16,0"
+                                 ToolTip="Первый запрос может быть долгим: LM Studio загружает модель с диска." />
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Токенов ответа" VerticalAlignment="Center"
+                                   Margin="0,0,10,0" />
+                        <TextBox x:Name="MaxTokensBox" Grid.Row="0" Grid.Column="3" Padding="4" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Temperature" VerticalAlignment="Center"
+                                   Margin="0,10,10,0" />
+                        <TextBox x:Name="TemperatureBox" Grid.Row="1" Grid.Column="1" Padding="4"
+                                 Margin="0,10,16,0"
+                                 ToolTip="0 — строгий JSON-ответ. Для этой задачи рекомендуется 0." />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,10,0,0"
+                                   Text="Для разбора JSON держите 0."
+                                   Foreground="#718096" VerticalAlignment="Center" TextWrapping="Wrap" />
+                    </Grid>
+                </GroupBox>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Строка состояния -->
+        <Border Grid.Row="2" Background="White" BorderBrush="#DDE1E6" BorderThickness="1"
+                CornerRadius="4" Padding="8" Margin="0,8,0,0">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Text="Готово к настройке."
+                       Foreground="#4A5568" />
+        </Border>
+
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="TestModelButton" Content="Проверить модель" Padding="14,6"
+                    Margin="0,0,8,0" Click="OnTestModel" />
+            <Button x:Name="FetchModelsButton" Content="Список моделей" Padding="14,6"
+                    Margin="0,0,8,0" Click="OnFetchModels" />
+            <Button x:Name="ResetButton" Content="Сбросить" Padding="14,6"
+                    Margin="0,0,8,0" Click="OnReset" />
+            <Button x:Name="SaveButton" Content="Сохранить" Padding="18,6" Margin="0,0,8,0"
+                    IsDefault="True" Click="OnSave" />
+            <Button x:Name="CloseButton" Content="Закрыть" Padding="14,6" IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

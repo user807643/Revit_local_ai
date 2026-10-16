@@ -1,0 +1,19 @@
+﻿<Project>
+
+  <!--
+    Путь к Revit API задаётся централизованно, чтобы при переносе проекта
+    достаточно было поменять одно свойство.
+  -->
+  <PropertyGroup>
+    <RevitVersion Condition="'$(RevitVersion)' == ''">2026</RevitVersion>
+    <RevitApiDir Condition="'$(RevitApiDir)' == '' And '$(RevitVersion)' == '2026'">C:\Program Files\Autodesk\Revit 2026\</RevitApiDir>
+    <RevitApiDir Condition="'$(RevitApiDir)' == '' And '$(RevitVersion)' == '2025'">C:\Program Files\Autodesk\Revit 2025\</RevitApiDir>
+    <RevitApiDir Condition="'$(RevitApiDir)' == '' And '$(RevitVersion)' == '2024'">C:\Program Files\Autodesk\Revit 2024\</RevitApiDir>
+    <RevitApiDir Condition="'$(RevitApiDir)' == ''">C:\Program Files\Autodesk\Revit 2026\</RevitApiDir>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Compile Remove="**\*.user" />
+  </ItemGroup>
+
+</Project>
