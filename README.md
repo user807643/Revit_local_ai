@@ -7,26 +7,22 @@
 
 ## Сборка и установка
 
-Вариант 1: установить файлы из релиза:
+Вариант 1. Установить файлы скачанные из релиза:
 
 ```
-%APPDATA%\Autodesk\Revit\Addins\2026\
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule.addin
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule\RevitAISchedule.dll
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule\RevitAISchedule.pdb
 ```
 
-Вариант 2: собрать файлы вручную:
+Вариант 2. Собрать файлы вручную:
 
 ```powershell
-# Собрать и установить
 .\build\Install-Plugin.ps1
-
-# То же + ZIP-архив проекта
 .\build\Install-Plugin.ps1 -Zip
 ```
 
-Вариант 3: собрать в папку:
+Вариант 3: Собрать в папку:
 
 ```powershell
 dotnet build RevitAISchedule.sln -c Release
