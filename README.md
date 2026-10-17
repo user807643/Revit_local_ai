@@ -144,39 +144,6 @@ dotnet run --project tests\RevitAISchedule.Tests
 (`ViewSchedule.GetValidCategoriesForSchedule()`), поэтому модель выбирает
 из реально существующих категорий.
 
-## Структура проекта
-
-```
-RevitAISchedule.sln
-Directory.Build.props              путь к Revit API, общие настройки
-src/RevitAISchedule/
-  RevitAISchedule.csproj           net8.0-windows, UseWPF, ссылки на RevitAPI/RevitAPIUI
-  RevitAISchedule.addin            манифест аддина (2 команды)
-  Commands/
-    ScheduleCreatorCommand.cs      IExternalCommand: открывает WPF-окно, создаёт ExternalEvent
-    ScheduleSelfTestCommand.cs     диагностика без LLM
-  Events/
-    CreateScheduleEventHandler.cs  IExternalEventHandler: Transaction + создание ведомости
-  Llm/
-    ILLMProvider.cs                интерфейс LLM
-    LmStudioProvider.cs            реализация для LM Studio (OpenAI-совместимый HTTP)
-    PromptBuilder.cs               системная подсказка + список категорий из Revit
-    LlmResponseParser.cs           устойчивый разбор JSON из ответа модели
-  Model/
-    ScheduleRequest.cs             JSON-модель запроса
-    ScheduleOutcome.cs             результат для UI
-  RevitApi/
-    CategoryResolver.cs            строка -> ElementId категории
-    ScheduleFieldCatalog.cs        реальные поля категории из Revit
-    ParameterResolver.cs           сопоставление имён + синонимы RU/EN
-    ScheduleFactory.cs             ViewSchedule + поля + сортировка + фильтры
-  Ui/
-    MainWindow.xaml(.cs)           окно плагина
-build/
-  Install-Plugin.ps1               сборка + установка + ZIP
-  SelfTest.jrn                     journal для автотеста в Revit
-```
-
 ## Формат JSON от LLM
 
 ```json
