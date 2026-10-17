@@ -49,23 +49,6 @@ dotnet build RevitAISchedule.sln -c Release
 
 ![Схема работы](img/Схема%20работы.png)
 
-```
-Revit 2026
-   ↓  IExternalCommand (кнопка «Внешние инструменты»)
-WPF-окно «Revit AI Schedule»
-   ↓  HTTP POST → http://127.0.0.1:1234/v1/chat/completions   (LM Studio, локально)
-структурированный ScheduleRequest (JSON)
-   ↓  парсинг + валидация (без Revit API)
-ExternalEvent.Raise()
-   ↓  главный поток Revit
-IExternalEventHandler.Execute(UIApplication)
-   ↓  Transaction
-Revit API 2026: ViewSchedule.CreateSchedule + ScheduleDefinition.AddField
-   ↓
-новая ViewSchedule с нужными полями
-   ↓  сообщение в окно: «Ведомость '…' создана.»
-```
-
 Ключевое правило архитектуры: `LLM никогда не обращается к Revit API и никогда не
 открывает Transaction`. LLM возвращает только JSON, всю работу с моделью Revit
 делает C#.
