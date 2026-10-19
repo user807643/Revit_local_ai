@@ -13,6 +13,7 @@
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule.addin
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule\RevitAISchedule.dll
 %APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule\RevitAISchedule.pdb
+%APPDATA%\Autodesk\Revit\Addins\2026\RevitAISchedule\config.json
 ```
 
 ## Использование
