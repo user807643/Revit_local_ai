@@ -1,4 +1,4 @@
-![Окно плагина](https://github.com/user807643/Revit_local_ai/blob/main/img/Скриншот.png)
+![Скриншот](https://github.com/user807643/Revit_local_ai/blob/main/img/Скриншот.png)
 ## Revit создание ведомостей
 
 Плагин для `Revit 2026`, который создаёт ведомости по описанию на естественном языке с помощью `локального ИИ`.
